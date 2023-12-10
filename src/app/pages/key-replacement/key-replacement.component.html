@@ -1,0 +1,46 @@
+<div class="container">
+
+  <app-device-info
+    [currentPhase]="currentPhase"
+    [(selectedDevice)]="selectedDevice"
+    [(selectedProgrammer)]="selectedProgrammer">
+  </app-device-info>
+
+  @if (currentPhase === replacementPhases.SELECT) {
+    <app-step [description]="'Please select a device to be replaced'">
+      <button actions mat-raised-button color="primary" (click)="onInvalidateDevice()">Next</button>
+    </app-step>
+  } @else if (currentPhase === replacementPhases.INVALIDATION) {
+    <app-step [title]="'Invalidation'"
+              [description]="'Please wait until device will be reset successfully'"
+              [showProgressBar]="true">
+      <button actions mat-raised-button color="primary" (click)="onCancel()">Cancel</button>
+    </app-step>
+  } @else if (currentPhase === replacementPhases.DUPLICATION) {
+    <app-step [title]="'Duplication'"
+              [description]="'Please enter the name for a new device'">
+<!--      content-->
+      <mat-form-field appearance="outline" content>
+        <mat-label>Device</mat-label>
+        <input type="text" matInput placeholder="Device" [ngModel]="selectedDevice?.name"
+               (ngModelChange)="onNameChange($event)"/>
+        @if (!selectedDevice?.name) {
+          <mat-error>Name <strong>required</strong></mat-error>
+        }
+      </mat-form-field>
+<!--      actions-->
+      <button actions mat-raised-button color="primary" [disabled]="!selectedDevice?.name"
+              (click)="onDuplicateDevice()">Next
+      </button>
+    </app-step>
+  } @else if (currentPhase === replacementPhases.PROGRAMMING) {
+    <app-step [title]="'Programming'"
+              [description]="'Please wait until device will be programming successfully'"
+              [showProgressBar]="true">
+      <button actions mat-raised-button color="primary" (click)="onCancel()">Cancel</button>
+    </app-step>
+  } @else if (currentPhase === replacementPhases.RESULT) {
+    <app-step [title]="'Result'"
+              [description]="selectedDevice?.name + ' is ready'"></app-step>
+  }
+</div>
