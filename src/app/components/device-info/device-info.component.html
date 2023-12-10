@@ -1,0 +1,26 @@
+<mat-card>
+  <mat-card-content>
+    <div class="item">
+      <label>Device</label>
+      <mat-form-field appearance="outline">
+        <mat-select [disabled]="![replacementPhases.SELECT, duplicationPhases.SELECT].includes(currentPhase) && !!selectedDevice"
+                    [(ngModel)]="selectedDevice" (ngModelChange)="onDeviceChange($event)">
+          @for (device of devices$ | async;track device.id) {
+            <mat-option [value]="device">{{ device.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="item">
+      <label>Programmer</label>
+      <mat-form-field appearance="outline">
+        <mat-select [disabled]="![replacementPhases.SELECT, duplicationPhases.SELECT].includes(currentPhase) && !!selectedProgrammer"
+                    [(ngModel)]="selectedProgrammer" (ngModelChange)="onProgrammerChange($event)">
+          @for (programmer of programmers$ | async;track programmer.id) {
+            <mat-option [value]="programmer">{{ programmer.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </mat-card-content>
+</mat-card>

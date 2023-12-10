@@ -1,0 +1,15 @@
+:host{
+  width: 25%;
+}
+.item {
+  display: flex;
+  label {
+    flex-basis: 35%;
+    margin-top: 1rem;
+    text-align: left;
+  }
+  mat-form-field {
+    margin-left: 1rem;
+    flex-basis: 65%;
+  }
+}
